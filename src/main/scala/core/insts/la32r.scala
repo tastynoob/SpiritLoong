@@ -121,6 +121,16 @@ object ALUOpType {
     def X      = 0.U(wid)
     def add_w  = 1.U(wid)
     def addi_w = 2.U(wid)
+    def sub_w = 3.U(wid)
+    def alsl_w = 4.U(wid)
+    def lu12i_w = 5.U(wid)
+    def slt = 6.U(wid)
+    def sltu = 7.U(wid)
+    def slti = 8.U(wid)
+    def sltui = 9.U(wid)
+    def pcaddi = 10.U(wid)
+    def pcaddu12i = 11.U(wid)
+    def pcalau12i = 12.U(wid)
 }
 
 object SelImm {
