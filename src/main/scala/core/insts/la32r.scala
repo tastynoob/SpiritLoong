@@ -17,7 +17,6 @@ object LA32RInsts {
     val PCADDI    = BitPat("b0001100?????????????????????????")
     val PCADDU12I = BitPat("b0001110?????????????????????????")
     val PCALAU12I = BitPat("b0001101?????????????????????????")
-    val ADDI_D    = BitPat("b0000001011??????????????????????")
     val AND       = BitPat("b00000000000101001???????????????")
     val OR        = BitPat("b00000000000101010???????????????")
     val NOR       = BitPat("b00000000000101000???????????????")
@@ -87,9 +86,9 @@ object LA32RInsts {
 object SrcType {
     def wid = 2.W
     def X   = 0.U(wid)
-    def reg = 0.U(wid)
-    def imm = 1.U(wid)
-    def pc  = 2.U(wid)
+    def reg = 1.U(wid)
+    def imm = 2.U(wid)
+    def pc  = 3.U(wid)
 
     def apply() = UInt(wid)
 
@@ -117,20 +116,80 @@ object UOpType {
 }
 
 object ALUOpType {
+    def wid        = 6.W
+
+    def add_w      = 0.U(wid)
+    def sub_w      = 1.U(wid)
+    def alsl_w     = 2.U(wid)
+    def lu12i_w    = 3.U(wid)
+    def slt        = 4.U(wid)
+    def sltu       = 5.U(wid)
+    def and        = 6.U(wid)
+    def or         = 7.U(wid)
+    def nor        = 8.U(wid)
+    def xor        = 9.U(wid)
+    def andn       = 10.U(wid)
+    def orn        = 11.U(wid)
+    def sll_w      = 12.U(wid)
+    def srl_w      = 13.U(wid)
+    def sra_w      = 14.U(wid)
+    def rotr_w     = 15.U(wid)
+    def ext_w_b    = 16.U(wid)
+    def ext_w_h    = 17.U(wid)
+    def clo_w      = 18.U(wid)
+    def clz_w      = 19.U(wid)
+    def cto_w      = 20.U(wid)
+    def ctz_w      = 21.U(wid)
+    def bytepick_w = 22.U(wid)
+    def revb_2h    = 23.U(wid)
+    def revb_4b    = 24.U(wid)
+    def bitrev_w   = 25.U(wid)
+    def bstrins_w  = 26.U(wid)
+    def bstrpick_w = 27.U(wid)
+    def maskeqz    = 28.U(wid)
+    def masknez    = 29.U(wid)
+}
+
+object BRUOpType {
+    def wid       = 6.W
+    def pcaddi    = 0.U(wid)
+    def pcaddu12i = 1.U(wid)
+    def pcalau12i = 2.U(wid)
+    def beq       = 3.U(wid)
+    def bne       = 4.U(wid)
+    def blt       = 5.U(wid)
+    def bge       = 6.U(wid)
+    def bltu      = 7.U(wid)
+    def bgeu      = 8.U(wid)
+    def beqz      = 9.U(wid)
+    def bnez      = 10.U(wid)
+    def b         = 11.U(wid)
+    def bl        = 12.U(wid)
+    def jirl      = 13.U(wid)
+}
+
+object MDUOpType {
+    def wid      = 6.W
+    def mul_w    = 0.U(wid)
+    def mulh_w   = 1.U(wid)
+    def mulh_wu  = 2.U(wid)
+    def div_w    = 3.U(wid)
+    def mod_w    = 4.U(wid)
+    def div_wu   = 5.U(wid)
+    def mod_wu   = 6.U(wid)
+}
+
+object LDUOpType {
     def wid    = 6.W
-    def X      = 0.U(wid)
-    def add_w  = 1.U(wid)
-    def addi_w = 2.U(wid)
-    def sub_w = 3.U(wid)
-    def alsl_w = 4.U(wid)
-    def lu12i_w = 5.U(wid)
-    def slt = 6.U(wid)
-    def sltu = 7.U(wid)
-    def slti = 8.U(wid)
-    def sltui = 9.U(wid)
-    def pcaddi = 10.U(wid)
-    def pcaddu12i = 11.U(wid)
-    def pcalau12i = 12.U(wid)
+    def ld_b   = 0.U(wid)
+    def ld_h   = 1.U(wid)
+    def ld_w   = 2.U(wid)
+    def ld_bu  = 3.U(wid)
+    def ld_hu  = 4.U(wid)
+    def st_b   = 5.U(wid)
+    def st_h   = 6.U(wid)
+    def st_w   = 7.U(wid)
+    def preld  = 8.U(wid)
 }
 
 object SelImm {
@@ -144,7 +203,8 @@ object SelImm {
     def IMM_OF16 = 6.U(wid)
     def IMM_OF21 = 7.U(wid)
     def IMM_OF26 = 8.U(wid)
-    def DC       = 9.U(wid)
+    def IMM_MSLS = 9.U(wid) // special
+    def DC       = 10.U(wid)
 
     def ImmMaxLen = 26
 
