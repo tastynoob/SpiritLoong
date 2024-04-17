@@ -10,8 +10,8 @@ import core.backend.decoder.DecodeUnit
 
 class DecodeStage(implicit p: CoreParams) extends Module {
     val io = IO(new Bundle {
-        val in    = Vec(p.DecodeWdith, Flipped(ValidIO(new FetchFlow)))
-        val out   = Vec(p.DecodeWdith, ValidIO(new DecFlow))
+        val in  = Vec(p.DecodeWdith, Flipped(ValidIO(new FetchFlow)))
+        val out = Vec(p.DecodeWdith, ValidIO(new DecFlow))
         val stall = new Bundle {
             val in  = Input(Bool())
             val out = Output(Bool())

@@ -6,10 +6,12 @@ import core.CoreParams
 import core.backend.decode.DecodeStage
 
 object Main extends App {
-    implicit val p: core.CoreParams = new CoreParams()
+    implicit val p: core.CoreParams = new CoreParams(
+        DecodeWdith=2
+    )
     // These lines generate the Verilog output
     println(
-        ChiselStage.emitSystemVerilog(
+        ChiselStage.emitSystemVerilogFile(
             new DecodeStage(),
             firtoolOpts = Array("-disable-all-randomization", "-strip-debug-info")
         )
